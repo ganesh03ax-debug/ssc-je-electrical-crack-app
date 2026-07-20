@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSC JE Electrical — CRACK APP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#3D63F5;
+  --blue-dark:#2C4DE0;
+  --blue-light:#EAF0FF;
+  --ink:#12172B;
+  --ink-soft:#667085;
+  --ink-faint:#9AA2B4;
+  --bg:#F2F4FA;
+  --panel:#FFFFFF;
+  --line:#E5E8F0;
+  --go:#12A150;
+  --go-soft:#E3F8EC;
+  --warn:#DD8F00;
+  --warn-soft:#FFF3D6;
+  --bad:#E23B4E;
+  --bad-soft:#FDE7EA;
+  --purple:#8B5CF6;
+  --purple-soft:#F1EAFE;
+  --radius:16px;
+  --radius-sm:11px;
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Inter',sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--ink);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+#app{max-width:800px; margin:0 auto; padding:16px 16px 60px;}
+a{color:inherit;}
+button{font-family:inherit; cursor:pointer;}
+:focus-visible{outline:2px solid var(--blue); outline-offset:2px;}
+
+/* ---------- top brand strip ---------- */
+.hdr{display:flex; align-items:center; gap:10px; padding:2px 2px 12px;}
+.brand-mark{
+  width:32px;height:32px;border-radius:9px; background:var(--ink); color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono); font-weight:800; font-size:13px;
+}
+.brand-name{font-size:13.5px; font-weight:800; color:var(--ink);}
+
+/* ---------- hero banner ---------- */
+.hero{
+  background:linear-gradient(120deg,#4C7DFA 0%, #3D63F5 45%, #2C4DE0 100%);
+  border-radius:20px; padding:26px 24px 22px; color:#fff; margin-bottom:18px;
+  box-shadow:0 14px 30px rgba(61,99,245,.28);
+}
+.hero h1{font-size:24px; font-weight:800; margin:0 0 6px; letter-spacing:-.2px;}
+.hero p{margin:0 0 16px; font-size:13.5px; color:rgba(255,255,255,.88); font-weight:500;}
+.hero-pills{display:flex; gap:8px; flex-wrap:wrap;}
+.hero-pill{
+  background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.22);
+  border-radius:20px; padding:7px 13px; font-size:12px; font-weight:700; color:#fff;
+  display:inline-flex; align-items:center; gap:6px;
+}
+
+/* ---------- tabs ---------- */
+.tabs-wrap{overflow-x:auto; margin-bottom:16px; padding-bottom:2px; scrollbar-width:thin;}
+.tabs{display:flex; gap:8px; width:max-content;}
+.tab{
+  border:1.5px solid var(--line); background:var(--panel);
+  border-radius:20px; padding:8px 16px; font-size:13px; font-weight:700;
+  color:var(--ink-soft); white-space:nowrap; flex-shrink:0;
+}
+.tab.active{border-color:var(--blue); background:var(--blue); color:#fff; box-shadow:0 4px 12px rgba(61,99,245,.3);}
+
+/* ---------- topic list ---------- */
+.topic-list{display:flex; flex-direction:column; gap:10px;}
+.topic-row{
+  display:flex; align-items:center; gap:14px;
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:15px 16px; box-shadow:0 1px 2px rgba(18,23,43,.03);
+  transition:box-shadow .15s ease, border-color .15s ease;
+}
+.topic-row:hover{box-shadow:0 8px 20px rgba(18,23,43,.08); border-color:#D7DEF3;}
+.topic-num{font-family:var(--mono); font-size:19px; font-weight:800; color:var(--ink-faint); width:26px; flex-shrink:0;}
+.topic-body{flex:1; min-width:0;}
+.topic-title{font-size:15.5px; font-weight:800; margin:0 0 7px; color:var(--ink);}
+.topic-tags{display:flex; gap:6px; flex-wrap:wrap; align-items:center;}
+.topic-tag{
+  display:inline-block; background:var(--blue-light); color:var(--blue-dark);
+  font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:20px;
+}
+.topic-tag.priority-HIGH{background:var(--bad-soft); color:var(--bad);}
+.topic-tag.priority-MEDIUM{background:var(--warn-soft); color:var(--warn);}
+.topic-tag.priority-LOW{background:var(--go-soft); color:var(--go);}
+.topic-right{display:flex; flex-direction:column; align-items:flex-end; gap:8px; flex-shrink:0;}
+.topic-qn{font-family:var(--mono); font-size:12px; font-weight:700; color:var(--ink-soft);}
+.start-btn{
+  background:var(--blue); color:#fff; border:none; border-radius:20px;
+  padding:9px 16px; font-size:13px; font-weight:800;
+  display:inline-flex; align-items:center; gap:6px;
+  box-shadow:0 4px 12px rgba(61,99,245,.3);
+}
+.start-btn:hover{background:var(--blue-dark);}
+.start-btn.soon{background:var(--line); color:var(--ink-faint); box-shadow:none;}
+
+.section-label{
+  font-family:var(--mono); font-size:11px; letter-spacing:1.2px; text-transform:uppercase;
+  color:var(--ink-faint); font-weight:700; margin:22px 4px 10px;
+}
+
+/* ---------- buttons (shared) ---------- */
+.btn{
+  border:none; border-radius:var(--radius-sm); padding:12px 16px; font-weight:800; font-size:13.5px;
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  transition:transform .1s ease, box-shadow .15s ease, background .15s ease;
+}
+.btn-primary{background:var(--blue); color:#fff; box-shadow:0 6px 16px rgba(61,99,245,.3);}
+.btn-primary:hover{background:var(--blue-dark);}
+.btn-go{background:var(--go); color:#fff; box-shadow:0 6px 16px rgba(18,161,80,.3);}
+.btn-go:hover{filter:brightness(.95);}
+.btn-ghost{background:var(--panel); border:1.5px solid var(--line); color:var(--ink-soft);}
+.btn-ghost:hover{border-color:var(--blue); color:var(--blue);}
+.btn-ghost.on{background:var(--purple-soft); border-color:var(--purple); color:var(--purple);}
+.btn-block{width:100%;}
+.btn:disabled{opacity:.4; cursor:not-allowed; transform:none; box-shadow:none;}
+
+/* ---------- quiz screen (SSC JE CBT style) ---------- */
+.exam-bar{
+  display:flex; align-items:center; justify-content:space-between;
+  background:var(--ink); color:#fff; border-radius:var(--radius-sm);
+  padding:11px 16px; margin-bottom:12px;
+}
+.exam-bar .et-name{font-size:12.5px; font-weight:700; opacity:.9;}
+.exam-bar .et-sub{font-family:var(--mono); font-size:10.5px; color:#A7B0C8; margin-top:2px;}
+.exam-timer{font-family:var(--mono); font-size:22px; font-weight:800; letter-spacing:1px;}
+.et-green{color:#4ADE80;} .et-yellow{color:#FACC15;} .et-orange{color:#FB923C;} .et-red{color:#F87171;}
+
+.palette-wrap{overflow-x:auto; margin-bottom:14px; padding-bottom:4px;}
+.palette{display:flex; gap:6px; width:max-content;}
+.pnum{
+  width:32px; height:32px; border-radius:8px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:12px; font-weight:800;
+  background:var(--panel); border:1.5px solid var(--line); color:var(--ink-soft);
+}
+.pnum.visited{border-color:var(--bad); color:var(--bad); background:var(--bad-soft);}
+.pnum.answered{border-color:var(--go); color:#fff; background:var(--go);}
+.pnum.marked{border-color:var(--purple); color:#fff; background:var(--purple);}
+.pnum.current{box-shadow:0 0 0 2.5px var(--blue); border-color:var(--blue);}
+
+.legend{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:16px; font-size:10.5px; color:var(--ink-soft); font-weight:600;}
+.legend span{display:inline-flex; align-items:center; gap:5px;}
+.legend i{width:9px; height:9px; border-radius:3px; display:inline-block;}
+
+.qcard{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:19px 19px 17px; margin-bottom:14px; box-shadow:0 1px 2px rgba(18,23,43,.03);}
+.qtag{
+  display:inline-block; font-family:var(--mono); font-size:10.5px; font-weight:800;
+  padding:4px 10px; border-radius:20px; margin-bottom:11px; letter-spacing:.3px;
+}
+.tag-pyq{background:var(--bad-soft); color:var(--bad);}
+.tag-concept{background:var(--go-soft); color:var(--go);}
+.qtext{font-size:15.5px; font-weight:700; line-height:1.55; margin:0 0 15px; color:var(--ink);}
+.qlevel{font-family:var(--mono); font-size:10.5px; color:var(--ink-faint); margin-left:8px; font-weight:700;}
+
+.opts{display:grid; gap:9px;}
+.opt{
+  display:flex; align-items:center; gap:11px;
+  border:1.5px solid var(--line); border-radius:var(--radius-sm); padding:12px 13px;
+  background:var(--panel); text-align:left; font-size:14px; font-weight:600; color:var(--ink);
+  transition:border-color .12s ease, background .12s ease;
+}
+.opt:hover:not(.locked){border-color:var(--blue);}
+.opt-letter{
+  width:26px; height:26px; border-radius:50%; background:var(--bg);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:12px; font-weight:800; flex-shrink:0; color:var(--ink-soft);
+  border:1.5px solid var(--line);
+}
+.opt.selected{border-color:var(--blue); background:var(--blue-light);}
+.opt.selected .opt-letter{background:var(--blue); color:#fff; border-color:transparent;}
+.opt.correct{border-color:var(--go); background:var(--go-soft);}
+.opt.correct .opt-letter{background:var(--go); color:#fff; border-color:transparent;}
+.opt.wrong{border-color:var(--bad); background:var(--bad-soft);}
+.opt.wrong .opt-letter{background:var(--bad); color:#fff; border-color:transparent;}
+
+.exp-box{
+  margin-top:15px; padding:14px 15px; background:var(--blue-light); border-left:3px solid var(--blue);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0; font-size:13.5px; line-height:1.6; color:var(--ink);
+}
+.exp-box b{color:var(--blue-dark); font-family:var(--mono); font-size:11px; letter-spacing:.5px;}
+
+.quiz-actions{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;}
+.quiz-actions-3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:8px;}
+.sticky-submit{position:sticky; bottom:10px; margin-top:14px;}
+.back-link{font-size:12.5px; color:var(--ink-soft); font-weight:700; background:none; border:none; padding:6px 0; margin-bottom:6px;}
+
+/* ---------- results ---------- */
+.score-hero{
+  background:linear-gradient(120deg,#4C7DFA 0%,#2C4DE0 100%);
+  border-radius:var(--radius); padding:26px 20px; text-align:center; color:#fff; margin-bottom:16px;
+  box-shadow:0 14px 30px rgba(61,99,245,.28);
+}
+.score-hero .big{font-family:var(--mono); font-size:46px; font-weight:800;}
+.score-hero .sub{font-size:12.5px; color:rgba(255,255,255,.85); margin-top:4px; font-weight:600;}
+.stat-row{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:16px;}
+.stat-box{background:rgba(255,255,255,.14); border-radius:10px; padding:10px 6px;}
+.stat-box .n{font-family:var(--mono); font-weight:800; font-size:17px;}
+.stat-box .l{font-size:10px; color:rgba(255,255,255,.8); margin-top:2px; font-weight:700; letter-spacing:.3px;}
+
+.panel{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:16px; margin-bottom:14px; box-shadow:0 1px 2px rgba(18,23,43,.03);}
+.panel h3{font-size:12px; text-transform:uppercase; letter-spacing:.6px; font-family:var(--mono); color:var(--ink-faint); margin:0 0 12px; font-weight:800;}
+.bar-row{display:flex; align-items:center; gap:10px; margin-bottom:8px; font-size:12.5px;}
+.bar-row .lbl{width:78px; flex-shrink:0; color:var(--ink-soft); font-weight:600;}
+.bar-track{flex:1; height:8px; background:var(--bg); border-radius:4px; overflow:hidden;}
+.bar-fill{height:100%; border-radius:4px;}
+.bar-row .val{width:36px; text-align:right; font-family:var(--mono); font-size:11.5px; flex-shrink:0;}
+
+.review-item{padding:10px 0; border-top:1px solid var(--line);}
+.review-item:first-child{border-top:none;}
+.review-q{font-size:13px; font-weight:600; margin:0 0 6px;}
+.review-meta{font-size:11.5px; font-family:var(--mono); display:flex; gap:10px; flex-wrap:wrap;}
+.review-meta .r-wrong{color:var(--bad);} .review-meta .r-right{color:var(--go);}
+
+.suggest-item{display:flex; gap:10px; padding:9px 0; border-top:1px solid var(--line); font-size:13px;}
+.suggest-item:first-child{border-top:none;}
+.suggest-dot{width:7px; height:7px; border-radius:50%; margin-top:5px; flex-shrink:0;}
+
+.result-actions{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:6px;}
+
+/* ---------- history ---------- */
+.hist-row{display:flex; align-items:center; gap:12px; padding:11px 0; border-top:1px solid var(--line);}
+.hist-row:first-child{border-top:none;}
+.hist-info{flex:1;}
+.hist-topic{font-weight:700; font-size:13.5px;}
+.hist-date{font-size:11px; color:var(--ink-soft); font-family:var(--mono);}
+.hist-score{font-family:var(--mono); font-weight:800; font-size:16px;}
+.spark{width:70px; height:26px;}
+
+.empty-state{text-align:center; padding:40px 20px; color:var(--ink-soft);}
+.empty-state .glyph{font-size:30px; margin-bottom:8px;}
+.empty-state p{font-size:13px; margin:4px 0 0;}
+
+.footer-note{text-align:center; font-size:11px; color:var(--ink-faint); margin-top:24px; font-family:var(--mono);}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="questions.js"></script>
+<script>
+/* ============================================================
+   EL() HELPER
+   ============================================================ */
+function el(tag, attrs, children){
+  attrs = attrs || {};
+  children = children || [];
+  const e = document.createElement(tag);
+  for (const k in attrs){
+    const v = attrs[k];
+    if (v == null) continue;
+    if (k === 'class') e.className = v;
+    else if (k === 'html') e.innerHTML = v;
+    else if (k.indexOf('on') === 0 && typeof v === 'function') e.addEventListener(k.slice(2).toLowerCase(), v);
+    else e.setAttribute(k, v);
+  }
+  (Array.isArray(children) ? children : [children]).forEach(c => {
+    if (c == null || c === false) return;
+    if (typeof c === 'string' || typeof c === 'number') e.appendChild(document.createTextNode(c));
+    else e.appendChild(c);
+  });
+  return e;
+}
+
+/* ============================================================
+   STATE
+   ============================================================ */
+const LS_KEY = 'sscje_elec_history_v1';
+let STATE = {
+  screen: 'home',
+  filter: 'All',
+  topic: null,
+  questions: [],
+  idx: 0,
+  answers: [],      // {selected, correct, timeSec, checked, visited, marked}
+  qStartTime: null,
+  timerHandle: null,
+  elapsedSec: 0
+};
+
+function loadHistory(){
+  try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; }
+  catch(e){ return []; }
+}
+function saveHistoryEntry(entry){
+  const h = loadHistory();
+  h.push(entry);
+  localStorage.setItem(LS_KEY, JSON.stringify(h.slice(-100)));
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* ============================================================
+   RENDER ROOT
+   ============================================================ */
+function render(){
+  const app = document.getElementById('app');
+  app.innerHTML = '';
+  if (STATE.screen === 'home'){
+    app.appendChild(TopBrand());
+    app.appendChild(HomeScreen());
+  }
+  else if (STATE.screen === 'quiz') app.appendChild(QuizScreen());
+  else if (STATE.screen === 'results') app.appendChild(ResultsScreen());
+  else if (STATE.screen === 'history') app.appendChild(HistoryScreen());
+  app.appendChild(el('div', {class:'footer-note'}, '⚡ SSC JE Electrical CRACK APP — built for 2027 aspirants'));
+}
+
+function TopBrand(){
+  return el('div', {class:'hdr'}, [
+    el('div', {class:'brand-mark'}, 'JE'),
+    el('div', {class:'brand-name'}, 'SSC JE Electrical')
+  ]);
+}
+
+/* ============================================================
+   HOME SCREEN
+   ============================================================ */
+function HomeScreen(){
+  const wrap = el('div', {});
+
+  wrap.appendChild(el('div', {class:'hero'}, [
+    el('h1', {}, 'SSC JE Electrical CRACK APP'),
+    el('p', {}, 'Weighted Q-bank · Per-question timer · Smart suggestions · 1032Q target'),
+    el('div', {class:'hero-pills'}, [
+      el('span', {class:'hero-pill'}, '🔴 PYQ = repeat pattern'),
+      el('span', {class:'hero-pill'}, '⏱️ Timer + smart feedback'),
+      el('span', {class:'hero-pill'}, '−0.25 negative marking')
+    ])
+  ]));
+
+  const cats = ['All','Technical','Non-Technical'];
+  const tabsWrap = el('div', {class:'tabs-wrap'});
+  tabsWrap.appendChild(el('div', {class:'tabs'},
+    cats.map(c => el('button', {
+      class:'tab' + (STATE.filter===c?' active':''),
+      onClick:() => { STATE.filter = c; render(); }
+    }, c))
+  ));
+  wrap.appendChild(tabsWrap);
+
+  wrap.appendChild(el('div', {class:'section-label'}, 'Choose a topic'));
+
+  const list = TOPICS.filter(t => STATE.filter==='All' || t.category===STATE.filter);
+  const listWrap = el('div', {class:'topic-list'});
+  list.forEach(t => {
+    const loaded = (QUESTION_BANK[t.id] || []).length;
+    const empty = loaded === 0;
+    listWrap.appendChild(el('div', {class:'topic-row'}, [
+      el('div', {class:'topic-num'}, String(t.id).padStart(2,'0')),
+      el('div', {class:'topic-body'}, [
+        el('p', {class:'topic-title'}, t.name),
+        el('div', {class:'topic-tags'}, [
+          el('span', {class:'topic-tag'}, t.category),
+          el('span', {class:'topic-tag priority-'+t.priority}, t.priority+' YIELD')
+        ])
+      ]),
+      el('div', {class:'topic-right'}, [
+        el('span', {class:'topic-qn'}, loaded + ' / ' + t.target + ' Q'),
+        empty
+          ? el('span', {class:'start-btn soon'}, 'Soon')
+          : el('button', {class:'start-btn', onClick:() => startTopic(t)}, ['Start', el('span', {}, '→')])
+      ])
+    ]));
+  });
+  wrap.appendChild(listWrap);
+
+  wrap.appendChild(el('div', {style:'margin-top:18px;'},
+    el('button', {class:'btn btn-ghost btn-block', onClick:() => { STATE.screen='history'; render(); }}, '📊 View performance history')
+  ));
+
+  return wrap;
+}
+
+function startTopic(topic){
+  const bank = QUESTION_BANK[topic.id] || [];
+  if (!bank.length) return;
+  STATE.topic = topic;
+  STATE.questions = shuffle(bank);
+  STATE.idx = 0;
+  STATE.answers = bank.map(() => ({selected:null, correct:false, timeSec:0, checked:false, visited:false, marked:false}));
+  STATE.answers[0].visited = true;
+  STATE.screen = 'quiz';
+  render();
+  startQuestionTimer();
+}
+
+/* ============================================================
+   QUIZ SCREEN (SSC JE CBT style)
+   ============================================================ */
+function startQuestionTimer(){
+  clearInterval(STATE.timerHandle);
+  STATE.qStartTime = Date.now();
+  STATE.elapsedSec = 0;
+  STATE.timerHandle = setInterval(() => {
+    STATE.elapsedSec = Math.floor((Date.now() - STATE.qStartTime) / 1000);
+    const readout = document.getElementById('exam-timer-digits');
+    if (readout){
+      readout.textContent = fmtTime(STATE.elapsedSec);
+      readout.className = 'exam-timer ' + timerColorClass(STATE.elapsedSec);
+    }
+  }, 1000);
+}
+function fmtTime(s){
+  const m = Math.floor(s/60), sec = s%60;
+  return String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
+}
+function timerColorClass(s){
+  if (s <= 30) return 'et-green';
+  if (s <= 60) return 'et-yellow';
+  if (s <= 90) return 'et-orange';
+  return 'et-red';
+}
+
+function jumpToQuestion(i){
+  if (i < 0 || i >= STATE.questions.length) return;
+  clearInterval(STATE.timerHandle);
+  STATE.idx = i;
+  STATE.answers[i].visited = true;
+  render();
+  if (!STATE.answers[i].checked){
+    startQuestionTimer();
+  } else {
+    STATE.elapsedSec = STATE.answers[i].timeSec;
+  }
+}
+
+function QuizScreen(){
+  const q = STATE.questions[STATE.idx];
+  const a = STATE.answers[STATE.idx];
+  const displaySec = a.checked ? a.timeSec : STATE.elapsedSec;
+  const wrap = el('div', {});
+
+  wrap.appendChild(el('button', {class:'back-link', onClick:() => { clearInterval(STATE.timerHandle); STATE.screen='home'; render(); }}, '← Exit topic'));
+
+  wrap.appendChild(el('div', {class:'exam-bar'}, [
+    el('div', {}, [
+      el('div', {class:'et-name'}, STATE.topic.name.toUpperCase()),
+      el('div', {class:'et-sub'}, 'Question ' + (STATE.idx+1) + ' of ' + STATE.questions.length)
+    ]),
+    el('div', {id:'exam-timer-digits', class:'exam-timer ' + timerColorClass(displaySec)}, fmtTime(displaySec))
+  ]));
+
+  // question navigator palette
+  const palWrap = el('div', {class:'palette-wrap'});
+  const pal = el('div', {class:'palette'});
+  STATE.questions.forEach((_, i) => {
+    const ai = STATE.answers[i];
+    let cls = 'pnum';
+    if (ai.marked) cls += ' marked';
+    else if (ai.checked) cls += ' answered';
+    else if (ai.visited) cls += ' visited';
+    if (i === STATE.idx) cls += ' current';
+    pal.appendChild(el('button', {class:cls, onClick:() => jumpToQuestion(i)}, String(i+1)));
+  });
+  palWrap.appendChild(pal);
+  wrap.appendChild(palWrap);
+
+  wrap.appendChild(el('div', {class:'legend'}, [
+    el('span', {}, [el('i', {style:'background:var(--go)'}), 'Answered']),
+    el('span', {}, [el('i', {style:'background:var(--bad-soft);border:1.5px solid var(--bad)'}), 'Visited, not answered']),
+    el('span', {}, [el('i', {style:'background:var(--purple)'}), 'Marked for review']),
+    el('span', {}, [el('i', {style:'background:var(--panel);border:1.5px solid var(--line)'}), 'Not visited'])
+  ]));
+
+  const qcard = el('div', {class:'qcard'});
+  qcard.appendChild(el('span', {class:'qtag ' + (q.tag.indexOf('PYQ')>-1 ? 'tag-pyq':'tag-concept')}, q.tag));
+  qcard.appendChild(el('span', {class:'qlevel'}, q.level));
+  qcard.appendChild(el('p', {class:'qtext'}, (STATE.idx+1) + '. ' + q.q));
+
+  const optsWrap = el('div', {class:'opts'});
+  q.opts.forEach((optText, i) => {
+    const letter = 'ABCD'[i];
+    let cls = 'opt';
+    if (a.checked){
+      cls += ' locked';
+      if (i === q.ans) cls += ' correct';
+      else if (i === a.selected) cls += ' wrong';
+    } else if (a.selected === i){
+      cls += ' selected';
+    }
+    optsWrap.appendChild(el('button', {
+      class: cls,
+      onClick: () => { if (!a.checked){ a.selected = i; render(); } }
+    }, [
+      el('span', {class:'opt-letter'}, letter),
+      el('span', {}, optText)
+    ]));
+  });
+  qcard.appendChild(optsWrap);
+
+  if (a.checked){
+    qcard.appendChild(el('div', {class:'exp-box'}, [
+      el('b', {}, a.selected === q.ans ? '✓ CORRECT — EXPLANATION' : '✕ WRONG — EXPLANATION'),
+      el('p', {style:'margin:6px 0 0;'}, q.exp)
+    ]));
+  }
+  wrap.appendChild(qcard);
+
+  if (!a.checked){
+    const actions3 = el('div', {class:'quiz-actions-3'});
+    actions3.appendChild(el('button', {
+      class:'btn btn-ghost', disabled: STATE.idx===0, onClick:() => jumpToQuestion(STATE.idx-1)
+    }, '◀ Previous'));
+    actions3.appendChild(el('button', {
+      class:'btn btn-ghost' + (a.marked ? ' on' : ''), onClick:() => { a.marked = !a.marked; render(); }
+    }, a.marked ? '🚩 Marked' : '🚩 Mark for review'));
+    actions3.appendChild(el('button', {
+      class:'btn btn-ghost', disabled: a.selected==null, onClick:() => { a.selected=null; render(); }
+    }, 'Clear'));
+    wrap.appendChild(actions3);
+    wrap.appendChild(el('button', {
+      class:'btn btn-primary btn-block', disabled: a.selected==null, onClick:() => checkAnswer()
+    }, 'Check answer'));
+  } else {
+    const actions2 = el('div', {class:'quiz-actions'});
+    actions2.appendChild(el('button', {
+      class:'btn btn-ghost', disabled: STATE.idx===0, onClick:() => jumpToQuestion(STATE.idx-1)
+    }, '◀ Previous'));
+    actions2.appendChild(el('button', {
+      class:'btn btn-go', onClick:() => nextQuestion()
+    }, STATE.idx === STATE.questions.length - 1 ? 'Finish topic' : 'Save & Next ▶'));
+    wrap.appendChild(actions2);
+  }
+
+  const answeredCount = STATE.answers.filter(x => x.checked).length;
+  if (answeredCount > 0){
+    wrap.appendChild(el('div', {class:'sticky-submit'},
+      el('button', {class:'btn btn-primary btn-block', onClick:() => finishTopic()},
+        'Submit & see results  (' + answeredCount + '/' + STATE.questions.length + ' attempted)')
+    ));
+  }
+
+  return wrap;
+}
+
+function checkAnswer(){
+  const q = STATE.questions[STATE.idx];
+  const a = STATE.answers[STATE.idx];
+  a.checked = true;
+  a.correct = (a.selected === q.ans);
+  a.timeSec = STATE.elapsedSec;
+  clearInterval(STATE.timerHandle);
+  render();
+}
+
+function nextQuestion(){
+  if (STATE.idx < STATE.questions.length - 1){
+    jumpToQuestion(STATE.idx + 1);
+  } else {
+    finishTopic();
+  }
+}
+
+function finishTopic(){
+  clearInterval(STATE.timerHandle);
+  const attempted = STATE.answers.filter(a => a.checked);
+  const correct = attempted.filter(a => a.correct).length;
+  const wrong = attempted.length - correct;
+  const marks = (correct * 1) - (wrong * 0.25);
+
+  const byLevel = {Easy:{c:0,t:0}, Medium:{c:0,t:0}, Hard:{c:0,t:0}};
+  const byTag = {PYQ:{c:0,t:0}, CONCEPT:{c:0,t:0}};
+  STATE.questions.forEach((q,i) => {
+    const a = STATE.answers[i];
+    if (!a.checked) return;
+    byLevel[q.level].t++; if (a.correct) byLevel[q.level].c++;
+    const key = q.tag.indexOf('PYQ')>-1 ? 'PYQ' : 'CONCEPT';
+    byTag[key].t++; if (a.correct) byTag[key].c++;
+  });
+
+  const entry = {
+    topicId: STATE.topic.id,
+    topicName: STATE.topic.name,
+    date: new Date().toISOString(),
+    attempted: attempted.length,
+    total: STATE.questions.length,
+    correct, wrong, marks,
+    accuracy: attempted.length ? Math.round((correct/attempted.length)*100) : 0,
+    byLevel, byTag,
+    avgTime: attempted.length ? Math.round(attempted.reduce((s,a)=>s+a.timeSec,0)/attempted.length) : 0
+  };
+  saveHistoryEntry(entry);
+  STATE._lastResult = entry;
+  STATE.screen = 'results';
+  render();
+}
+
+/* ============================================================
+   RESULTS SCREEN
+   ============================================================ */
+function ResultsScreen(){
+  const r = STATE._lastResult;
+  const wrap = el('div', {});
+
+  wrap.appendChild(el('div', {class:'score-hero'}, [
+    el('div', {class:'big'}, r.marks.toFixed(2)),
+    el('div', {class:'sub'}, 'marks scored · ' + r.topicName + ' · ' + r.accuracy + '% accuracy'),
+    el('div', {class:'stat-row'}, [
+      el('div', {class:'stat-box'}, [el('div', {class:'n'}, r.correct), el('div', {class:'l'}, 'CORRECT')]),
+      el('div', {class:'stat-box'}, [el('div', {class:'n'}, r.wrong), el('div', {class:'l'}, 'WRONG (−0.25)')]),
+      el('div', {class:'stat-box'}, [el('div', {class:'n'}, r.attempted+'/'+r.total), el('div', {class:'l'}, 'ATTEMPTED')])
+    ])
+  ]));
+
+  const diffPanel = el('div', {class:'panel'});
+  diffPanel.appendChild(el('h3', {}, 'Difficulty breakdown'));
+  ['Easy','Medium','Hard'].forEach(lv => {
+    const d = r.byLevel[lv];
+    const pct = d.t ? Math.round((d.c/d.t)*100) : 0;
+    diffPanel.appendChild(el('div', {class:'bar-row'}, [
+      el('span', {class:'lbl'}, lv),
+      el('div', {class:'bar-track'}, el('div', {class:'bar-fill', style:'width:'+pct+'%;background:'+(pct>=70?'var(--go)':pct>=40?'var(--warn)':'var(--bad)')})),
+      el('span', {class:'val'}, d.t ? d.c+'/'+d.t : '—')
+    ]));
+  });
+  wrap.appendChild(diffPanel);
+
+  const tagPanel = el('div', {class:'panel'});
+  tagPanel.appendChild(el('h3', {}, 'PYQ vs Concept breakdown'));
+  [['PYQ','PYQ (repeat pattern)'],['CONCEPT','Concept / gap-fill']].forEach(([key,label]) => {
+    const d = r.byTag[key];
+    const pct = d.t ? Math.round((d.c/d.t)*100) : 0;
+    tagPanel.appendChild(el('div', {class:'bar-row'}, [
+      el('span', {class:'lbl'}, label),
+      el('div', {class:'bar-track'}, el('div', {class:'bar-fill', style:'width:'+pct+'%;background:var(--blue)'})),
+      el('span', {class:'val'}, d.t ? d.c+'/'+d.t : '—')
+    ]));
+  });
+  wrap.appendChild(tagPanel);
+
+  const timePanel = el('div', {class:'panel'});
+  timePanel.appendChild(el('h3', {}, 'Time per question'));
+  const timeChart = el('div', {style:'display:flex;align-items:flex-end;gap:3px;height:60px;'});
+  STATE.answers.forEach((a,i) => {
+    const h = a.checked ? Math.min(100, (a.timeSec/90)*100) : 4;
+    timeChart.appendChild(el('div', {
+      title: 'Q'+(i+1)+': '+a.timeSec+'s',
+      style:'flex:1;min-width:3px;height:'+Math.max(h,4)+'%;border-radius:2px 2px 0 0;background:'+(a.checked ? (a.correct?'var(--go)':'var(--bad)') : 'var(--line)')
+    }));
+  });
+  timePanel.appendChild(timeChart);
+  timePanel.appendChild(el('p', {style:'font-size:11px;color:var(--ink-soft);margin:8px 0 0;font-family:var(--mono);'}, 'avg time: ' + r.avgTime + 's/question'));
+  wrap.appendChild(timePanel);
+
+  wrap.appendChild(SuggestionsPanel(r));
+
+  const wrongIdx = STATE.answers.map((a,i)=>({a,i})).filter(x => x.a.checked && !x.a.correct);
+  if (wrongIdx.length){
+    const revPanel = el('div', {class:'panel'});
+    revPanel.appendChild(el('h3', {}, 'Review wrong answers (' + wrongIdx.length + ')'));
+    wrongIdx.forEach(({a,i}) => {
+      const q = STATE.questions[i];
+      revPanel.appendChild(el('div', {class:'review-item'}, [
+        el('p', {class:'review-q'}, 'Q'+(i+1)+'. ' + q.q),
+        el('div', {class:'review-meta'}, [
+          el('span', {class:'r-wrong'}, 'Your answer: ' + q.opts[a.selected]),
+          el('span', {class:'r-right'}, 'Correct: ' + q.opts[q.ans])
+        ])
+      ]));
+    });
+    wrap.appendChild(revPanel);
+  }
+
+  const actions = el('div', {class:'result-actions'});
+  actions.appendChild(el('button', {class:'btn btn-ghost', onClick:() => startTopic(STATE.topic)}, 'Retry'));
+  actions.appendChild(el('button', {class:'btn btn-ghost', onClick:() => { STATE.screen='home'; render(); }}, 'New topic'));
+  actions.appendChild(el('button', {class:'btn btn-primary', onClick:() => { STATE.screen='history'; render(); }}, 'History'));
+  wrap.appendChild(actions);
+
+  return wrap;
+}
+
+function SuggestionsPanel(r){
+  const suggestions = [];
+  if (r.accuracy < 50) suggestions.push({c:'var(--bad)', t:'Accuracy below 50% — re-read the concept notes for ' + r.topicName + ' before attempting more questions.'});
+  else if (r.accuracy < 75) suggestions.push({c:'var(--warn)', t:'Decent grip, but push accuracy above 75% by revisiting the questions you got wrong.'});
+  else suggestions.push({c:'var(--go)', t:'Strong accuracy (' + r.accuracy + '%) — you\'re ready to move to the next high-yield topic.'});
+  if (r.avgTime > 75) suggestions.push({c:'var(--bad)', t:'Average ' + r.avgTime + 's/question is too slow for a 2-hour, 200-question paper — drill formulas until recall is instant.'});
+  else if (r.avgTime > 50) suggestions.push({c:'var(--warn)', t:'Speed is acceptable but tighten it — aim for under 50s/question with practice.'});
+  else suggestions.push({c:'var(--go)', t:'Excellent pace at ' + r.avgTime + 's/question — well within exam timing limits.'});
+  const hard = r.byLevel.Hard;
+  if (hard.t && (hard.c/hard.t) < 0.5) suggestions.push({c:'var(--warn)', t:'Hard numericals are your weak spot here — practice the derivation steps, not just the final formula.'});
+  const pyq = r.byTag.PYQ;
+  if (pyq.t && (pyq.c/pyq.t) < 0.6) suggestions.push({c:'var(--bad)', t:'You missed several PYQ-pattern questions — these repeat almost every year, so revise these first.'});
+  if (r.attempted < r.total) suggestions.push({c:'var(--warn)', t:'You left ' + (r.total-r.attempted) + ' question(s) unattempted — come back and finish the full set for a true score.'});
+  else suggestions.push({c:'var(--go)', t:'Full set attempted — this score is a true reading of your readiness on this topic.'});
+
+  const panel = el('div', {class:'panel'});
+  panel.appendChild(el('h3', {}, 'Smart suggestions'));
+  suggestions.forEach(s => {
+    panel.appendChild(el('div', {class:'suggest-item'}, [
+      el('span', {class:'suggest-dot', style:'background:'+s.c}),
+      el('span', {}, s.t)
+    ]));
+  });
+  return panel;
+}
+
+/* ============================================================
+   HISTORY SCREEN
+   ============================================================ */
+function HistoryScreen(){
+  const wrap = el('div', {});
+  wrap.appendChild(el('button', {class:'back-link', onClick:() => { STATE.screen='home'; render(); }}, '← Back to topics'));
+  wrap.appendChild(el('div', {class:'section-label'}, 'Performance history'));
+
+  const hist = loadHistory().slice().reverse();
+  if (!hist.length){
+    wrap.appendChild(el('div', {class:'empty-state'}, [
+      el('div', {class:'glyph'}, '📈'),
+      el('p', {}, 'No attempts yet. Finish a topic to see your trend here.')
+    ]));
+    return wrap;
+  }
+
+  const panel = el('div', {class:'panel'});
+  hist.slice(0, 30).forEach(h => {
+    const d = new Date(h.date);
+    panel.appendChild(el('div', {class:'hist-row'}, [
+      el('div', {class:'hist-info'}, [
+        el('div', {class:'hist-topic'}, h.topicName),
+        el('div', {class:'hist-date'}, d.toLocaleDateString() + ' · ' + h.correct + '/' + h.attempted + ' correct · ' + h.accuracy + '%')
+      ]),
+      Sparkline(h.topicId),
+      el('div', {class:'hist-score', style:'color:'+(h.accuracy>=75?'var(--go)':h.accuracy>=50?'var(--warn)':'var(--bad)')}, h.marks.toFixed(1))
+    ]));
+  });
+  wrap.appendChild(panel);
+  return wrap;
+}
+
+function Sparkline(topicId){
+  const points = loadHistory().filter(h => h.topicId === topicId).map(h => h.accuracy);
+  if (points.length < 2) return el('span', {style:'width:70px;display:inline-block;'});
+  const w = 70, h = 26, max = 100, min = 0;
+  const step = w / (points.length - 1);
+  const path = points.map((p,i) => (i*step) + ',' + (h - ((p-min)/(max-min))*h)).join(' ');
+  const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('viewBox','0 0 '+w+' '+h);
+  svg.setAttribute('class','spark');
+  const poly = document.createElementNS('http://www.w3.org/2000/svg','polyline');
+  poly.setAttribute('points', path);
+  poly.setAttribute('fill','none');
+  poly.setAttribute('stroke','var(--blue)');
+  poly.setAttribute('stroke-width','2');
+  poly.setAttribute('stroke-linecap','round');
+  poly.setAttribute('stroke-linejoin','round');
+  svg.appendChild(poly);
+  return svg;
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+render();
+</script>
+</body>
+</html>
